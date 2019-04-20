@@ -1,5 +1,6 @@
 package com.example.todoapp;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,15 +15,19 @@ public class ToDo {
         this.date = date;
     }
 
-    public String getUuid() {
+    String getUuid() {
         return uuid;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public Date getDate() {
+    Date getDate() {
         return date;
+    }
+
+    String getFormattedDate() {
+        return DateFormat.getDateInstance().format(date);
     }
 }
