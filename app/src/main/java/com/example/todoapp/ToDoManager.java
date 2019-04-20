@@ -23,4 +23,18 @@ public class ToDoManager {
     public void addToDo(ToDo toDo) {
         toDos.add(toDo);
     }
+
+    public void editToDo(ToDo toDo) {
+        int index = -1;
+        for (ToDo item : toDos)
+            if (item.getUuid().equals(toDo.getUuid())) {
+                index = toDos.indexOf(item);
+                break;
+            }
+        toDos.set(index, toDo);
+    }
+
+    public void deleteToDo(ToDo toDo) {
+        toDos.remove(toDo);
+    }
 }
