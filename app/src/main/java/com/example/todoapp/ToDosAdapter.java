@@ -12,16 +12,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHolder> {
     private ArrayList<ToDo> toDos;
+    private ItemClickListener mClickListener;
 
-    static class ToDoViewHolder extends RecyclerView.ViewHolder {
+    class ToDoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titleTextView;
         TextView dateTextView;
 
         ToDoViewHolder(View view) {
             super(view);
 
+            view.setOnClickListener(this);
+
             this.titleTextView = view.findViewById(android.R.id.text1);
             this.dateTextView = view.findViewById(android.R.id.text2);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
@@ -47,5 +55,13 @@ public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHold
     @Override
     public int getItemCount() {
         return toDos.size();
+    }
+
+    void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 }
