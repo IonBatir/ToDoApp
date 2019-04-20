@@ -3,6 +3,7 @@ package com.example.todoapp;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,17 +15,19 @@ public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHold
     private ArrayList<ToDo> toDos;
     private ItemClickListener mClickListener;
 
-    class ToDoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ToDoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titleTextView;
         TextView dateTextView;
+        CheckBox completeCheckbox;
 
-        ToDoViewHolder(View view) {
+        public ToDoViewHolder(View view) {
             super(view);
 
             view.setOnClickListener(this);
 
-            this.titleTextView = view.findViewById(android.R.id.text1);
-            this.dateTextView = view.findViewById(android.R.id.text2);
+            titleTextView = view.findViewById(R.id.titleTextView);
+            dateTextView = view.findViewById(R.id.dateTextView);
+            completeCheckbox = view.findViewById(R.id.completeCheckBox);
         }
 
         @Override
@@ -33,14 +36,14 @@ public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHold
         }
     }
 
-    ToDosAdapter(ArrayList<ToDo> toDos) {
+    public ToDosAdapter(ArrayList<ToDo> toDos) {
         this.toDos = toDos;
     }
 
     @NonNull
     @Override
     public ToDoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listItemView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false);
+        View listItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.todo_list_item, parent, false);
 
         return new ToDoViewHolder(listItemView);
     }
@@ -50,6 +53,7 @@ public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHold
         ToDo toDo = toDos.get(position);
         holder.titleTextView.setText(toDo.getTitle());
         holder.dateTextView.setText(toDo.getFormattedDate());
+        holder.completeCheckbox.setChecked(toDo.isCompleted());
     }
 
     @Override
@@ -57,7 +61,7 @@ public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHold
         return toDos.size();
     }
 
-    void setClickListener(ItemClickListener itemClickListener) {
+    public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
