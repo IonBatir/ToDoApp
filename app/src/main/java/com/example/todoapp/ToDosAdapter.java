@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,25 +15,32 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHolder> {
     private ArrayList<ToDo> toDos;
     private ItemClickListener mClickListener;
+    private CheckBoxCheckedChangeListener mCheckBoxChangeCheckedListener;
 
-    public class ToDoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ToDoViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView dateTextView;
-        CheckBox completeCheckbox;
+        CheckBox completeCheckBox;
 
-        public ToDoViewHolder(View view) {
+        public ToDoViewHolder(final View view) {
             super(view);
-
-            view.setOnClickListener(this);
 
             titleTextView = view.findViewById(R.id.titleTextView);
             dateTextView = view.findViewById(R.id.dateTextView);
-            completeCheckbox = view.findViewById(R.id.completeCheckBox);
-        }
+            completeCheckBox = view.findViewById(R.id.completeCheckBox);
 
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+                }
+            });
+            completeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (mCheckBoxChangeCheckedListener != null) mCheckBoxChangeCheckedListener.onCheckBoxCheckedChange((CheckBox) buttonView, getAdapterPosition(), isChecked);
+                }
+            });
         }
     }
 
@@ -53,7 +61,7 @@ public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHold
         ToDo toDo = toDos.get(position);
         holder.titleTextView.setText(toDo.getTitle());
         holder.dateTextView.setText(toDo.getFormattedDate());
-        holder.completeCheckbox.setChecked(toDo.isCompleted());
+        holder.completeCheckBox.setChecked(toDo.isCompleted());
     }
 
     @Override
@@ -67,5 +75,13 @@ public class ToDosAdapter extends RecyclerView.Adapter<ToDosAdapter.ToDoViewHold
 
     public interface ItemClickListener {
         void onItemClick(View view, int position);
+    }
+
+    public void setCheckBoxClickListener(CheckBoxCheckedChangeListener checkBoxChangeCheckListener) {
+        this.mCheckBoxChangeCheckedListener = checkBoxChangeCheckListener;
+    }
+
+    public interface CheckBoxCheckedChangeListener {
+        void onCheckBoxCheckedChange(CheckBox checkBox, int position, boolean isChecked);
     }
 }

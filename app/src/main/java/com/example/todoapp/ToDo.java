@@ -37,7 +37,7 @@ public class ToDo {
         return completed;
     }
 
-    public void toggleComplete() {
-        completed = !completed;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 }
