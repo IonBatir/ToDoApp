@@ -10,13 +10,13 @@ public class ToDoManager {
         toDos = new ArrayList<>();
     }
 
-    private static ToDoManager getInstance() {
+    static ToDoManager getInstance() {
         if (manager == null)
             manager = new ToDoManager();
         return manager;
     }
 
-    public ArrayList<ToDo> getToDos() {
+    ArrayList<ToDo> getToDos() {
         return toDos;
     }
 
