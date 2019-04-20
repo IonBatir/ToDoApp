@@ -15,6 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        ToDosAdapter toDosAdapter = new ToDosAdapter(ToDoManager.getInstance().getToDos());
+        recyclerView.setAdapter(toDosAdapter);
     }
 
     @Override
