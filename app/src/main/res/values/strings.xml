@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ToDoApp</string>
     <string name="action_settings">Settings</string>
+    <string name="todo_title_message">Enter ToDo title</string>
+    <string name="todo_date_message">Select ToDo date</string>
+    <string name="add_todo">Add ToDo</string>
+    <string name="edit_todo">Edit ToDo</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
 </resources>
