@@ -25,8 +25,16 @@ public class ToDo {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Date getDate() {
         return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getFormattedDate() {
